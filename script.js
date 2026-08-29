@@ -4,24 +4,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Color Selector Logic
   const colorDots = document.querySelectorAll('.color-dot');
   const currentColorLabel = document.getElementById('selected-color-name');
-  const heroVisual = document.querySelector('.hero-visual');
+  const heroVisual = document.getElementById('hero-visual-card');
+  const mainImg = document.getElementById('main-product-img');
 
   const colorData = {
     'cosmic-orange': {
       name: 'Cosmic Orange (Cam Vũ Trụ)',
-      glow: 'rgba(255, 107, 53, 0.35)'
-    },
-    'deep-blue': {
-      name: 'Deep Titanium Blue (Xanh Titan Đậm)',
-      glow: 'rgba(41, 151, 255, 0.35)'
+      glow: 'rgba(232, 100, 39, 0.55)',
+      scale: 'scale(1.05)',
+      origin: 'center center'
     },
     'silver': {
-      name: 'Silver Frost (Bạc Ánh Kim)',
-      glow: 'rgba(240, 240, 255, 0.35)'
+      name: 'Silver (Bạc Ánh Kim)',
+      glow: 'rgba(240, 240, 255, 0.45)',
+      scale: 'scale(1.05)',
+      origin: 'left center'
     },
-    'natural-titanium': {
-      name: 'Natural Titanium (Titan Tự Nhiên)',
-      glow: 'rgba(216, 200, 184, 0.35)'
+    'deep-blue': {
+      name: 'Deep Blue (Xanh Titan Đậm)',
+      glow: 'rgba(42, 60, 80, 0.75)',
+      scale: 'scale(1.05)',
+      origin: 'right center'
     }
   };
 
@@ -36,7 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
           currentColorLabel.textContent = colorData[colorKey].name;
         }
         if (heroVisual) {
-          heroVisual.style.boxShadow = `0 20px 80px rgba(0, 0, 0, 0.8), 0 0 50px ${colorData[colorKey].glow}`;
+          heroVisual.style.boxShadow = `0 30px 100px rgba(0, 0, 0, 0.9), 0 0 60px ${colorData[colorKey].glow}`;
+        }
+        if (mainImg) {
+          mainImg.style.transformOrigin = colorData[colorKey].origin;
+          mainImg.style.transform = colorData[colorKey].scale;
+          setTimeout(() => {
+            mainImg.style.transform = 'scale(1)';
+          }, 350);
         }
       }
     });
@@ -61,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const storage = btn.dataset.storage;
       if (prices[storage] && priceDisplay) {
         priceDisplay.style.opacity = '0';
-        priceDisplay.style.transform = 'translateY(10px)';
+        priceDisplay.style.transform = 'translateY(8px)';
         setTimeout(() => {
           priceDisplay.textContent = prices[storage];
           priceDisplay.style.opacity = '1';
@@ -93,10 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Scroll Reveal Animations
+  // 4. Scroll Reveal
   const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    rootMargin: '0px 0px -40px 0px'
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -111,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.bento-card, .spec-item, .config-box').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+    el.style.transform = 'translateY(25px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
     observer.observe(el);
   });
 });
